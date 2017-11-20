@@ -1,2 +1,12 @@
 module ApplicationHelper
+
+  #根据page_title返回标题
+  def full_title(page_title = '')
+    base_title = "Ruby on Rails Tutorial Sample App"
+    if base_title.empty?
+      base_title
+    else
+      page_title + " | " + base_title
+    end
+  end
 end
