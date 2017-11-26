@@ -1,4 +1,10 @@
 foo:
-  name: foobar
+  name: foo
   email: foo@bar.com
   password_digest: <%= User.digest "password" %>
+
+bar:
+  name: bar
+  email: bar@foo.com
+  password_digest: <%= User.digest "password" %>
+  

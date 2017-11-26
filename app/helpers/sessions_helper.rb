@@ -39,6 +39,10 @@ module SessionsHelper
     end
   end
 
+  def correct_user?(user)
+    current_user == user
+  end
+
   #判断用户是否已经登录，是则返回true, 否则返回false
   def logged_in?
     !current_user.nil?
