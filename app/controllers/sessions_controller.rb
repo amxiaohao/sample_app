@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       #将user_id存入cookies
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       # remember user
-      redirect_to user_url(user)
+      redirect_back user_url(user)
     else
       flash.now[:danger] = "Invalid email/password"
       render "new"

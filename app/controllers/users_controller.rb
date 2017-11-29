@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
-  before_action :login_required, only: [:edit, :update]
+  before_action :login_required, only: [:index, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
+
+  def index
+    @users = User.paginate(page: params[:page], per_page: 25)
+  end
 
   def new
     @user = User.new
@@ -44,6 +48,7 @@ class UsersController < ApplicationController
     #前置过滤器，请求edit和update两个动作前需要登录
     def login_required
       unless logged_in?
+        store_location
         flash[:danger] = "please log in"
         redirect_to login_url
       end
