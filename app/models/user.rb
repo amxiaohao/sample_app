@@ -31,6 +31,7 @@ class User < ApplicationRecord
     self.update_attribute(:remember_digest, User.digest(self.remember_token))
   end
 
+  #浏览器中的remember_token转换成哈希与User中的哈希比较
   def authenticated?(remember_token)
     BCrypt::Password.new(self.remember_digest).is_password?(remember_token)
   end
