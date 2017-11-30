@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :login_required, only: [:index, :edit, :update]
+  before_action :login_required, only: [:index, :edit, :update, :destroy]
+  before_action　:admin_required, only: :destroy  
   before_action :correct_user,   only: [:edit, :update]
 
   def index
@@ -39,13 +40,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    User.find(params[:id]).delete
+    flash[:success] = "User deleted"
+    redirect_to users_url
+  end
+
   private
   
     def user_params
       params.require(:user).permit(:email, :name, :password, :password_confirmation)
     end
 
-    #前置过滤器，请求edit和update两个动作前需要登录
+    #前置过滤器，请求index, edit, update, destroy动作前需要登录
     def login_required
       unless logged_in?
         store_location
@@ -58,5 +65,9 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to root_url unless correct_user?(@user)
+    end
+
+    def admin_required
+      redirect_to root_url unless current_user.admin?
     end
 end

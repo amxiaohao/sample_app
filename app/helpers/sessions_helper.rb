@@ -25,7 +25,7 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
-  #获取当前用户，如果未登录则返回nil
+  #返回当前用户，如果未登录则返回nil
   def current_user
     #在session中查找用户
     if (user_id = session[:user_id])
